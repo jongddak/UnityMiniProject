@@ -25,6 +25,7 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         TracePlayer();
+        Moddie();
     }
 
     private void TracePlayer() 
@@ -32,5 +33,18 @@ public class Monster : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MonsterMoveSpeed * Time.deltaTime);
     }
     private void AttackPlayer() {}
+    public void onHit() 
+    {    
+        MonsterHp -= 10;
+    }
+
+    private void Moddie() 
+    {
+        // 몬스터 죽을때 아이템 생성(경험치 + 확률적으로 아이템), 킬수 올리기 
+        if (MonsterHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }
