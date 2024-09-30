@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnTime = 0.5f;
+        SpawnTime = 0.25f;
         StartCoroutine(spawnRoutine());
     }
     IEnumerator spawnRoutine() 

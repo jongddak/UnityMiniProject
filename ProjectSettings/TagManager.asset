@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Atk
+  - Mob
   layers:
   - Default
   - TransparentFX
