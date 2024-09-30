@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -23,31 +24,46 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject mover;
 
-    [SerializeField] Slider Slider;
+    [SerializeField] Slider hpSlider;
+    [SerializeField] Slider expSlider;
+
+    [SerializeField] TextMeshProUGUI atktext;
+    [SerializeField] TextMeshProUGUI atkspeedtext;
+    [SerializeField] TextMeshProUGUI atkcounttext;
+    [SerializeField] TextMeshProUGUI atksizetext;
+    [SerializeField] TextMeshProUGUI atkrangeext;
+    [SerializeField] TextMeshProUGUI killcounttext;
+    [SerializeField] TextMeshProUGUI movespeedtext;
+    [SerializeField] TextMeshProUGUI leveltext;
+    [SerializeField] TextMeshProUGUI curhptext;
+    [SerializeField] TextMeshProUGUI maxhptext;
 
     public static int killCount = 0;
     private bool canTakeDamage = true;
+     
+    public UnityEvent Ondied;  // 나중에 죽으면 이벤트 달아줄거
 
-    public UnityEvent Ondied;
-
-    private void Awake()
-    {
-        plCurHp = 100;
-        plMaxHp = 100;
-
-        plCurExp = 0;
-        plMaxExp = 0;
-
-        plLevel = 1;
-
-        platk = 10;
-        
-    }
+  
     private void Update()
     {
         Die();
-        Debug.Log(killCount);
-        Slider.value = plCurHp/plMaxHp;
+
+        hpSlider.value = plCurHp/plMaxHp;
+        expSlider.value = plCurExp / plMaxExp;
+        leveltext.text = plLevel.ToString();
+        killcounttext.text = killCount.ToString();
+        maxhptext.text = plMaxHp.ToString();
+        curhptext.text = "/" + plCurHp.ToString();
+
+        movespeedtext.text = plmoveSpeed.ToString("F2");
+        atkspeedtext.text = platkSpeed.ToString("F2");
+        atkcounttext.text = platkCount.ToString();
+        atkrangeext.text = platkRange.ToString("F2");
+        atktext.text = platk.ToString("F2");
+        atksizetext.text = platkSize.ToString("F2");
+
+
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
