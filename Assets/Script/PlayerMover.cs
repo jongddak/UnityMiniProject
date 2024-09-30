@@ -9,20 +9,25 @@ public class PlayerMover : MonoBehaviour
 
     [SerializeField] float moveSpeed;
     [SerializeField] SpriteRenderer spriteRenderer;
-
+    [SerializeField] GameObject player;
     [SerializeField] Collider2D bound;
 
 
     private Bounds bounds;
+    private PlayerStat playerStat;
 
-    private void Start()
-    {
+    private void Awake()
+    {   
         bounds = bound.bounds;
+
+        playerStat = player.GetComponent<PlayerStat>();
+        moveSpeed = playerStat.plmoveSpeed;
     }
 
 
     private void Update()  // fixed? 
     {
+        moveSpeed = playerStat.plmoveSpeed;
         Move();
 
 

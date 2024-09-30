@@ -371,6 +371,8 @@ MonoBehaviour:
   MonsterMoveSpeed: 4
   droprate: 0
   player: {fileID: 0}
+  potion: {fileID: 7335319896712186756, guid: adcadb27c6ba42641bc005d1350c63bc, type: 3}
+  Exp: {fileID: 2557313483036221477, guid: 79de220aa4667dc4b8ceb36bb6b53060, type: 3}
   slider: {fileID: 6032386009602314638}
 --- !u!61 &4346308799351821163
 BoxCollider2D:

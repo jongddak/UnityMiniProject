@@ -9,15 +9,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float atkRange;
     [SerializeField] float atkSize;
     [SerializeField] int atkCount;
-    [SerializeField] float atk;
+    
 
 
     [SerializeField] GameObject slashprefab;
     [SerializeField] Transform atkPoint;
-    
 
-    
-    public enum AtkType  { Slash, Stap } // 공격 형태  기본은 slash , 처음 스킬에선(5레벨) 찌르기로 변경(변경 + 공격력정도 주면 될듯) or 베기 강화 
+    [SerializeField] GameObject player;
+
+
+    public enum AtkType  { Slash, Stap } // 공격 형태  기본은 slash , 처음 스킬에선(5레벨)  베기 강화 
     
     private AtkType curatktype = AtkType.Slash;
     private Coroutine atkroutine;
@@ -25,27 +26,41 @@ public class PlayerAttack : MonoBehaviour
     private float curRange = 1;
     private float curSpeed = 1;
     private int curCount = 1;
+    private PlayerStat playerStat;
+    private void Awake()
+    {
+        playerStat = player.GetComponent<PlayerStat>();
+        atkSize = playerStat.platkSize;
+        atkCount = playerStat.platkCount;
+        atkRange = playerStat.platkRange;
+        atkSpeed = playerStat.platkSpeed;   
+    }
     private void Start()
     {
         atkroutine = StartCoroutine(Attacking(atkCount,atkSize,atkRange,curatktype,atkSpeed));
     }
     private void Update()
     {
+        atkSize = playerStat.platkSize;
+        atkCount = playerStat.platkCount;
+        atkRange = playerStat.platkRange;
+        atkSpeed = playerStat.platkSpeed;
+
         Aiming();
         if (curSize != atkSize || curRange != atkRange || curCount != atkCount || curSpeed != atkSpeed)
         {
             if (atkroutine != null)
             {
-                StopCoroutine(atkroutine); // 실행 중인 코루틴을 멈춤
+                StopCoroutine(atkroutine); 
             }
 
-            // 업데이트된 값 반영
+           
             curSize = atkSize;
             curRange = atkRange;
             curCount = atkCount;
             curSpeed = atkSpeed;
 
-            // 새로운 코루틴 시작
+           
             atkroutine = StartCoroutine(Attacking(atkCount, atkSize, atkRange, curatktype, atkSpeed));
         }
     }
@@ -77,13 +92,13 @@ public class PlayerAttack : MonoBehaviour
         {
             for (int i = 0; i < atkcount; i++)
             {
-                // 공격 횟수 만큼 반복해서 공격재생 
+                // 아직 미구현
                 Debug.Log("찌르기!");
             }
         }
     }
 
-    private void Aiming() 
+    private void Aiming()  // 칼 바라보게 
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
 

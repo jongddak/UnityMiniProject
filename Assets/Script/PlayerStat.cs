@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
-    [SerializeField] float platkSpeed;
-    [SerializeField] float platkRange;
-    [SerializeField] float platkSize;
-    [SerializeField] int platkCount;
-    [SerializeField] float platk;
-    [SerializeField] float plmoveSpeed;
+    [SerializeField] public float platkSpeed;
+    [SerializeField] public float platkRange;
+    [SerializeField] public float platkSize;
+    [SerializeField] public int platkCount;
+    [SerializeField] public float platk;
+    [SerializeField] public float plmoveSpeed;
 
     [SerializeField] float plCurHp;
     [SerializeField] float plMaxHp;
@@ -39,6 +39,8 @@ public class PlayerStat : MonoBehaviour
         plMaxExp = 0;
 
         plLevel = 1;
+
+        platk = 10;
         
     }
     private void Update()
