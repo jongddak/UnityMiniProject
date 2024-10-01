@@ -32,8 +32,9 @@ public class Monster : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.GetComponent<Transform>();
         playerStat = player.GetComponent<PlayerStat>();
-        MonsterCurHp = MonsterMaxHp;  
-        
+        MonsterMaxHp = MonsterMaxHp * (0.1f + (PlayerStat.killCount * 0.001f));
+        MonsterCurHp = MonsterMaxHp;
+       
     }
 
     private void Update()
@@ -46,7 +47,11 @@ public class Monster : MonoBehaviour
 
     private void TracePlayer() 
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MonsterMoveSpeed * Time.deltaTime);
+        if (player != null) 
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MonsterMoveSpeed * Time.deltaTime);
+        }
+        
     }
     private void AttackPlayer() {}
     public void onHit() 
@@ -59,7 +64,7 @@ public class Monster : MonoBehaviour
         // 몬스터 죽을때 아이템 생성(경험치 + 확률적으로 아이템), 킬수 올리기 
         if (MonsterCurHp <= 0)
         {   
-            int x = Random.Range(0, 50);
+            int x = Random.Range(0, 100);
             if (x == drop) 
             {
               Instantiate(potion,transform.position,transform.rotation);  // 포션   

@@ -14,6 +14,10 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] public float platk;
     [SerializeField] public float plmoveSpeed;
 
+    [SerializeField] public bool shoot;
+    [SerializeField] public bool rotateslash;
+    
+
     [SerializeField] float plCurHp;
     [SerializeField] float plMaxHp;
     [SerializeField] float plCurExp;
@@ -38,22 +42,35 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] TextMeshProUGUI curhptext;
     [SerializeField] TextMeshProUGUI maxhptext;
 
+    [SerializeField] GameObject buff;
+    [SerializeField] GameObject spark;  
+
+    public enum AtkType { Slash, Spark }
+   
+    public AtkType atktype = AtkType.Slash;
+
     public static int killCount = 0;
     private bool canTakeDamage = true;
      
     public UnityEvent Ondied;  // 나중에 죽으면 이벤트 달아줄거
 
-  
+    private void Awake()
+    {
+        shoot = false;
+        rotateslash = false;
+        
+    }
     private void Update()
     {
         Die();
-
+        plCurHp = Mathf.Clamp(plCurHp, float.MinValue, plMaxHp);
         hpSlider.value = plCurHp/plMaxHp;
         expSlider.value = plCurExp / plMaxExp;
         leveltext.text = plLevel.ToString();
         killcounttext.text = killCount.ToString();
-        maxhptext.text = plMaxHp.ToString();
-        curhptext.text = "/" + plCurHp.ToString();
+
+        curhptext.text = "/" + plMaxHp.ToString();
+        maxhptext.text = plCurHp.ToString();
 
         movespeedtext.text = plmoveSpeed.ToString("F2");
         atkspeedtext.text = platkSpeed.ToString("F2");
@@ -94,7 +111,7 @@ public class PlayerStat : MonoBehaviour
 
     public void LevelUp() 
     {
-        plCurExp += 5;
+        plCurExp += 10;
         if (plCurExp >= plMaxExp) 
         {
             plCurExp = 0;
@@ -102,9 +119,38 @@ public class PlayerStat : MonoBehaviour
             Debug.Log("레벨업");
             plLevel++;
         }
+
+        if (plLevel % 3 == 0) 
+        {
+            // 3의 배수마다 스킬선택 ui 등장 이벤트처리 + 게임 일시정지 
+        }
     }
     public void heal() 
     {
         plCurHp += 30;
+    }
+    public void Regen()  // 이거도 이벤트로 
+    {
+        StartCoroutine(regenarator());
+    }
+    IEnumerator regenarator() 
+    {
+        WaitForSeconds time = new WaitForSeconds(3f);
+        while (true) 
+        {
+            yield return time;
+            plCurHp++;
+        }
+    }
+    public void Buff() // 이벤트로 처리하자 , 해당 스킬 버튼 누르면 바뀌게 
+    {
+        // 플레이어 파티클 오브젝트 on  + 스탯 증가 
+        buff.SetActive(true);
+    }  
+    public void SparkOn() 
+    {
+        // 플레이어 파티클 오브젝트 on  + 스탯 증가 
+        spark.SetActive(true);
+        atktype = AtkType.Spark;
     }
 }
