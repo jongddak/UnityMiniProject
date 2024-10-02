@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
 
     [SerializeField] GameObject potion;
     [SerializeField] GameObject Exp;
+    [SerializeField] GameObject Magnet;
 
     [SerializeField] Slider slider;
 
@@ -65,9 +66,13 @@ public class Monster : MonoBehaviour
         if (MonsterCurHp <= 0)
         {   
             int x = Random.Range(0, 100);
-            if (x == drop) 
+            if (x == drop)
             {
-              Instantiate(potion,transform.position,transform.rotation);  // 포션   
+                Instantiate(potion, transform.position, transform.rotation);  // 포션   
+            }
+            else if (x - 1 == drop) 
+            {
+                Instantiate(Magnet, transform.position, transform.rotation); // 자석
             }
             Instantiate(Exp, transform.position, transform.rotation);  // 경험치
             Destroy(gameObject); // 몬스터 제거

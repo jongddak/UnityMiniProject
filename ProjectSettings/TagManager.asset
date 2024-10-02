@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Atk
   - Mob
+  - pause
+  - timer
+  - Ui
+  - canvas
   layers:
   - Default
   - TransparentFX

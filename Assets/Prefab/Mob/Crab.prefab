@@ -103,12 +103,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MonsterMaxHp: 50
   MonsterCurHp: 50
-  MonsterAtk: 0
   MonsterMoveSpeed: 4
   droprate: 0
   player: {fileID: 0}
   potion: {fileID: 7335319896712186756, guid: adcadb27c6ba42641bc005d1350c63bc, type: 3}
   Exp: {fileID: 2557313483036221477, guid: 79de220aa4667dc4b8ceb36bb6b53060, type: 3}
+  Magnet: {fileID: 3478534028192820195, guid: 46ffcd33d992efb46bf66775736b3b58, type: 3}
   slider: {fileID: 467142003479376742}
 --- !u!61 &257860008405733313
 BoxCollider2D:
